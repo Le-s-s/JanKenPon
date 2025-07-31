@@ -1,0 +1,45 @@
+*{
+    height: 100%;
+}
+
+.page{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.rock, .paper, .scissors{
+    border: 10%;
+    border-width: 10px;
+    width: 20%;
+    height: 40%;
+}
+
+.rock{
+    color:black;
+    background-color: brown;
+    border-style: double;
+    border-color: black;
+}
+
+.paper{
+    color:black;
+    background-color: white;
+    border-style: dashed;
+    border-color: grey;
+}
+
+.scissors{
+    color:black;
+    background-color: grey;
+    border-style: groove;
+    border-color: white;
+}
+
+button p{
+    margin: 0;
+    align-content:center;
+    font-size: xx-large;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+}
