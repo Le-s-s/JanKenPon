@@ -1,17 +1,29 @@
-*{
+html,body,.results,.page{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+html,body,.results{
+    flex-direction: column;
+}
+
+html,body{
     height: 100%;
 }
 
-.page{
-    display: flex;
-    justify-content: space-around;
+.results,.page{
     align-items: center;
 }
+.results{
+    min-height: 15.55em;
+    transition: all 0.2s ease;
+}
+
 .rock, .paper, .scissors{
     border: 10%;
     border-width: 10px;
-    width: 20%;
-    height: 40%;
+    width: 12.5em;
+    height: 12.5em;
 }
 
 .rock{
@@ -36,7 +48,6 @@
 }
 
 button p{
-    margin: 0;
     align-content:center;
     font-size: xx-large;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;

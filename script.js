@@ -2,7 +2,6 @@
     // after the choice is made, the number will be assigned to rock(0) paper(1) or scissors(2).
     // the game rules will be applied and the winner wins, adding to their score.
     // after a score is made, the round counter will also go up
-
     // first receive input
     // when input is confirmed generate number
     // in computer function assign generated number to element for computer.
@@ -12,8 +11,8 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     let round = 1;
-    let player_score = 0;
-    let computer_score = 0;
+    let playerScore = 0;
+    let cpuScore = 0;
     const maxRound = 5;
 
     // creates nodelist of buttons on page
@@ -26,58 +25,95 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     // sets player to clicked buttons classname
                     let player = button.className;
-                    let computer = computer_choice();
-                    let winner = play_round(player, computer);
+                    let computer = cpuChoice();
+                    let roundWinner = playRound(player, computer);;
 
-                    console.log(`Current round ${round}`)
-                    console.log(`player chose ${player}`);
-                    console.log(`computer chose ${computer}`);
-                    console.log(winner);
-                    console.log(`Player ${player_score} & Computer ${computer_score}`);
-                    round ++;
+                    let display = document.querySelector(".results");
+                    // sets all html within results to empty
+                    display.innerHTML = "";
+
+                    if(round < maxRound){
+                        // creates element of type changes text and appends results classed div
+                        let currentRound = document.createElement("h1");
+                        currentRound.textContent = `Round ${round}`;
+                        display.appendChild(currentRound)
+
+                        let score = document.createElement("p");
+                        score.textContent = `Player: ${playerScore}. CPU: ${cpuScore}`;
+                        display.appendChild(score);
+
+                        let choice = document.createElement('p');
+                        choice.textContent = `Player chose ${player}, CPU chose ${computer}.`;
+                        display.appendChild(choice);
+
+                        let rWinner = document.createElement("p");
+                        rWinner.textContent = `${roundWinner}`;
+                        display.appendChild(rWinner);
+
+                        round ++;
+                        }
+                    else if(round == maxRound){
+                        let winner = document.createElement("h1");
+                        winner.textContent = `The winner of the game is ${roundWinner}!`;
+                        display.appendChild(winner)
+                    }
                 });
         });
 
-    function computer_choice(){
+    function cpuChoice(){
+        // use random number and array of strings to choose and returns result
         const rpc = ["rock", "paper", "scissors"];
         return rpc[Math.floor(Math.random() * 3)];
     }
 
-    function play_round(get_player_choice, get_computer_choice){
-        if (get_player_choice == get_computer_choice){
-            return "Tie";
-        }
+    function playRound(get_player_choice, get_cpuChoice){
+        // takes results of cpu choice and compares it to player button clicked in a very convoluted way
+        if(round < maxRound){
+            if (get_player_choice == get_cpuChoice){
+                return "Tie";
+            }
 
-        if(get_player_choice == "rock"){
-            if(get_computer_choice == "paper"){
-                computer_score++;
-                return "computer wins";
+            if(get_player_choice == "rock"){
+                if(get_cpuChoice == "paper"){
+                    cpuScore++;
+                    return "Round winner is CPU.";
+                }
+                else{
+                    playerScore++;
+                    return "Round winner is player!";
+                }
+            }
+
+            if(get_player_choice == "paper"){
+                if(get_cpuChoice == "scissors"){
+                    cpuScore++; 
+                    return "Round winner is CPU.";
+                }
+                else{
+                    playerScore++;
+                    return "Round winner is player!";
+                }
+            }
+
+            if(get_player_choice == "scissors"){
+                if(get_cpuChoice == "rock"){
+                    cpuScore++;
+                    return "Round winner is CPU.";
+                }
+                else{
+                    playerScore++;
+                    return "Round winner is player!";
+                }
+            }
+        }
+        else{
+            // game winner logic, very advanced.
+            if(playerScore > cpuScore){
+                return "Player";
+
             }
             else{
-                player_score++;
-                return "player wins";
-            }
-        }
-
-        if(get_player_choice == "paper"){
-            if(get_computer_choice == "scissors"){
-                computer_score++; 
-                return "computer wins";
-            }
-            else{
-                player_score++;
-                return "player wins";
-            }
-        }
-
-        if(get_player_choice == "scissors"){
-            if(get_computer_choice == "rock"){
-                computer_score++;
-                return "computer wins";
-            }
-            else{
-                player_score++;
-                return "player wins";
+                return "CPU";
             }
         }
     }
